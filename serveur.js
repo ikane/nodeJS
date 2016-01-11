@@ -6,33 +6,15 @@ var server = http.createServer(function(request, response) {
 	
 	response.writeHead(200, {"Content-Type":"text/plain"});
 	
-	var params = querystring.parse(url.parse(request.url).query);
-	
-	if('prenom' in params && 'nom' in params) {
-		response.write('Vous vous appelez ' + params['prenom'] + ' ' + params['nom']);
-	} else {
-		response.write('Vous devez bien avoir un prénom et un nom, non ?');
-	}
-	
-	/*
-	 if (page == '/') {
-        response.write('Vous êtes à l\'accueil, que puis-je pour vous ?');
-    }
-    else if (page == '/sous-sol') {
-        response.write('Vous êtes dans la cave à vins, ces bouteilles sont à moi !');
-    }
-    else if (page == '/etage/1/chambre') {
-        response.write('Hé ho, c\'est privé ici !');
-    } else {
-		response.writeHead(404, {"Content-Type":"text/html"});
-		response.write('<h1>Page not found, sorry!</h1>');
-	}
-	*/
+	response.write('Salut tout le monde');
 
     response.end();
 });
 
-server.listen(8000);
+server.on('close', function(){ //On ecoute l'evenement close
+		console.log('Bye bye!');
+});
 
-// Console will print the message
-console.log("Server running at http://127.0.0.1:8000/ ...");
+server.listen(8000); // Demarre le serveur
+
+server.close(); //Arrete le serveur. declenche l'evenement close
