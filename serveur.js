@@ -1,20 +1,14 @@
 var http = require('http');
 var url = require('url');
 var querystring = require('querystring');
+var EventEmitter = require('events').EventEmitter;
 
-var server = http.createServer(function(request, response) {
+var jeu = new EventEmitter();
+
+jeu.on('gameover', function(message) {
+	console.log(message);
+	});
 	
-	response.writeHead(200, {"Content-Type":"text/plain"});
-	
-	response.write('Salut tout le monde');
+jeu.emit('gameover','Vous avez perdu');
 
-    response.end();
-});
 
-server.on('close', function(){ //On ecoute l'evenement close
-		console.log('Bye bye!');
-});
-
-server.listen(8000); // Demarre le serveur
-
-server.close(); //Arrete le serveur. declenche l'evenement close
